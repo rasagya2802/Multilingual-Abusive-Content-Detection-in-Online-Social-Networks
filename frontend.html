@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Abuse Detection</title>
+</head>
+<body>
+  <h2>Check if a Sentence is Abusive</h2>
+  <textarea id="textInput" rows="4" cols="60" placeholder="Enter a sentence..."></textarea><br>
+  <button onclick="checkAbuse()">Check</button>
+  <pre id="result" style="background:#f4f4f4;padding:10px;border:1px solid #ccc;margin-top:10px;"></pre>
+
+  <script>
+    async function checkAbuse() {
+      const input = document.getElementById("textInput").value;
+
+      try {
+        const response = await fetch("http://localhost:5000/predict", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ text: input })
+        });
+
+        const data = await response.json();
+        document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+
+      } catch (error) {
+        document.getElementById("result").textContent = "❌ Failed to get response: " + error;
+      }
+    }
+  </script>
+</body>
+</html>
