@@ -1,7 +1,0 @@
-flask
-torch
-transformers
-langdetect
-pandas
-scikit-learn
-flask-cors
